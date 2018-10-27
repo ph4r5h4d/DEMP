@@ -25,11 +25,13 @@ RUN	curl -sS https://getcomposer.org/installer | php && \
 	chmod +x /usr/local/bin/composer
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml exif
+
 RUN apk add --no-cache --virtual .persistent-deps icu-dev libxml2-dev \
         && docker-php-ext-configure intl --enable-intl \
         && docker-php-ext-configure soap --enable-soap \
         && docker-php-ext-install intl \
         && docker-php-ext-install soap
+
 RUN docker-php-ext-configure gd \
        --with-freetype-dir=/usr/include/ \
        --with-png-dir=/usr/include/ \
