@@ -25,4 +25,4 @@ Nginx configuration can be found in `./docker/nginx/`. Also, note that `access.l
 Your project source must go under `src` directory. Nginx default check for `index.php` in `src/public` to comply with modern frameworks like Laravel so if it's not your case, you may change nginx configuration.
 
 ### Note:
-If you are on Windows and you experience a problem with MariaDB please kindly remove the related volume in `docker-compose.yml` and restart containers, Also remember with these changes you will loose your data once the container gets deleted. The meeting seems to be held next week so Arbi could join us.
+If you are on Windows and you experience a problem with MariaDB please kindly remove the related volume in `docker-compose.yml` and restart containers, Also remember with these changes you will loose your data once the container gets deleted.
