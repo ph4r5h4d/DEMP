@@ -41,8 +41,3 @@ services:
         - "3306:3306"
         volumes:
         - "./docker/mysql-data:/var/lib/mysql"
-#        entrypoint:
-#          sh -c "
-#          echo 'CREATE DATABASE IF NOT EXISTS snapp; CREATE DATABASE IF NOT EXISTS snapp_geo;CREATE DATABASE IF NOT EXISTS snapp_logger;CREATE DATABASE IF NOT EXISTS backoffice;' > /docker-entrypoint-initdb.d/init.sql;
-#          /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-#          "
