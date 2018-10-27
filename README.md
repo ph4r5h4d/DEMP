@@ -20,9 +20,12 @@ The first time may take some minutes for containers to start.
 You can find `php.ini` in `./docker/php/php.ini`  
 If you need to change anything remember you need to restart the container for the change to take effect.   
 
-Nginx configuration can be found in `./docker/nginx/`. Also, note that `access.log` and `error.log` will be created in the same directory after container comes up.
+Nginx configuration can be found in `./docker/nginx/`. Also, nginx logs goes to `logs` directory inside `nginx` directory.
 
 Your project source must go under `src` directory. Nginx default check for `index.php` in `src/public` to comply with modern frameworks like Laravel so if it's not your case, you may change nginx configuration.
+
+## Configuration
+Check the `.env` file. You can change image version if you want and also modify services exposed port.
 
 ### Note:
 If you are on Windows and you experience a problem with MariaDB please kindly remove the related volume in `docker-compose.yml` and restart containers, Also remember with these changes you will loose your data once the container gets deleted.
