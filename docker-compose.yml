@@ -1,43 +1,40 @@
 version: '3'
+
 services:
     web:
-        container_name: 'nginx'
-        image: nginx:alpine
+        image: nginx:${NGINX_IMAGE_VERSION}
         volumes:
         - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf"
         - "./src:/var/www/html"
-        - "./docker/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
-        - "./docker/nginx/access_log:/var/log/nginx/access.log"
-        - "./docker/nginx/error_log:/var/log/nginx/error.log"
+        - "./docker/nginx/logs:/var/log/nginx"
         ports:
-        - "8080:80"
+        - "${HTTP_PORT}:80"
         environment:
         - NGINX_HOST=localhost
-        command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
         restart: always
         depends_on:
         - php
+
     php:
-        container_name: 'php'
         build: ./docker/php/
         restart: always
         volumes:
         - "./docker/php/php.ini:/usr/local/etc/php/php.ini"
         - "./src:/var/www/html"
         depends_on:
-        - mysql
+        - mariadb
         links:
-        - "mysql:php"
-    mysql:
-        image: 'mariadb:latest'
-        container_name: 'mysql'
-        restart: always
+        - mariadb
+
+    mariadb:
+        image: mariadb:${MARIADB_IMAGE_VERSION}
         environment:
-        - MYSQL_DATABASE=myapp
-        - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_USER=dev
-        - MYSQL_PASSWORD=dev
+        - MYSQL_DATABASE=${MARIADB_DB_NAME}
+        - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWD}
+        - MYSQL_USER=${MARIADB_USER}
+        - MYSQL_PASSWORD=${MARIADB_USER_PASSWD}
+        restart: always
         ports:
-        - "3306:3306"
+        - "${MARIADB_PORT}:3306"
         volumes:
         - "./docker/mysql-data:/var/lib/mysql"
